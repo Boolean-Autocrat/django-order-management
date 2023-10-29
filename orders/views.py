@@ -97,20 +97,26 @@ def profile_view(request):
 @login_required(login_url="login")
 def profile_edit(request):
     user_obj = get_object_or_404(User, id=request.user.id)
-    profile_edit_form = ProfileEditForm(instance=user_obj)
-    context = {"form": profile_edit_form}
+    context = {"user": user_obj}
     if request.method == "POST":
-        form = ProfileEditForm(request.POST, instance=user_obj)
-        if form.is_valid():
-            user_obj.email = form.cleaned_data.get("email")
-            user_obj.first_name = form.cleaned_data.get("first_name")
-            user_obj.last_name = form.cleaned_data.get("last_name")
-            user_obj.save()
-            messages.success(request, "Profile updated successfully")
-            return redirect("profile")
-        else:
-            messages.error(request, form.errors)
+        email = request.POST.get("email")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        if len(first_name) < 2:
+            messages.error(request, "First name must be at least 2 characters long")
             return render(request, "profile/edit.html", context)
+        if len(last_name) < 2:
+            messages.error(request, "Last name must be at least 2 characters long")
+            return render(request, "profile/edit.html", context)
+        if not email or email.count("@") != 1 or email.count(".") < 1:
+            messages.error(request, "Invalid email")
+            return render(request, "profile/edit.html", context)
+        user_obj.email = email
+        user_obj.first_name = first_name
+        user_obj.last_name = last_name
+        user_obj.save()
+        messages.success(request, "Profile updated successfully")
+        return redirect("profile")
     return render(request, "profile/edit.html", context)
 
 

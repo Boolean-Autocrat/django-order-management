@@ -24,13 +24,6 @@
                                 {% else %}
                                 <p class="card-text"><i>Not set</i></p>
                                 {% endif %}
-                                <hr />
-                                <h5 class="card-title">Age</h5>
-                                {% if profile.age %}
-                                <p class="card-text">{{ profile.age }}</p>
-                                {% else %}
-                                <p class="card-text"><i>Not set</i></p>
-                                {% endif %}
                             </div>
                             <div class="container">
                                 <a href="{% url 'profile_edit' %}" class="btn btn-primary mx-auto">Edit Profile</a>
