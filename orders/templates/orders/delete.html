@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block title %}Delete Order{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-4">Delete Order</h1>
+            <hr />
+            <p>Are you sure you want to delete this order?</p>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a href="{% url 'order_details' order.id %}" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% load widget_tweaks %}{% block title %}Profile{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-4">Your Profile</h1>
+            <hr />
+            <div class="row">
+                <div class="card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img src="https://placehold.co/500x400" class="img-fluid rounded my-4" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Username</h5>
+                                <p class="card-text">{{profile.username}}</p>
+                                <hr />
+                                <h5 class="card-title">Email</h5>
+                                <p class="card-text">{{profile.email}}</p>
+                                <hr />
+                                <h5 class="card-title">Name</h5>
+                                {% if profile.first_name %}
+                                <p class="card-text">{{ profile.first_name }} {{ profile.last_name }}</p>
+                                {% else %}
+                                <p class="card-text"><i>Not set</i></p>
+                                {% endif %}
+                                <hr />
+                                <h5 class="card-title">Age</h5>
+                                {% if profile.age %}
+                                <p class="card-text">{{ profile.age }}</p>
+                                {% else %}
+                                <p class="card-text"><i>Not set</i></p>
+                                {% endif %}
+                            </div>
+                            <div class="container">
+                                <a href="{% url 'profile_edit' %}" class="btn btn-primary mx-auto">Edit Profile</a>
+                            </div>
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1 class="display-4">Your Orders</h1>
+            <hr />
+            <div class="row">
+                {% for order in orders %}
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Order ID: {{ order.id }}</h5>
+                            <p class="card-text">Customer: {{ order.customer }}</p>
+                            <p class="card-text">Product: {{ order.product }}</p>
+                            <p class="card-text">Quantity: {{ order.quantity }}</p>
+                            <p class="card-text">Order Date: {{ order.date }}</p>
+                            <p class="card-text">Status: {{ order.status }}</p>
+                            <a href="{% url 'order_details' order.id %}" class="btn btn-primary">Details</a>
+                            <a href="{% url 'order_edit' order.id %}" class="btn btn-success">Update</a>
+                            <a href="{% url 'order_delete' order.id %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {% if orders.count == 0 %}
+                <div class="col-md-12">
+                    <p class="lead">You have no orders yet.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block title %}Dashboard{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-4">Dashboard</h1>
+            <hr />
+            <div>
+                <h3 class="display-6">Your Orders</h3>
+                <a href="{% url 'order_create' %}" class="btn btn-primary my-2">Create Order</a>
+                <div class="row">
+                    {% if orders_user.count == 0 %}
+                    <div class="col-md-12">
+                        <p class="lead">You have no orders yet.</p>
+                    </div>
+                    {% endif %} {% for order in orders_user %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Vendor: @{{ order.vendor_id }}</h5>
+                                <p class="card-text">Product: {{ order.product }}</p>
+                                <p class="card-text">Customer Name: {{ order.customer }}</p>
+                                <p class="card-text">Quantity: {{ order.quantity }}</p>
+                                <p class="card-text">Order Date: {{ order.date }}</p>
+                                <p class="card-text">Priority: {{ order.priority }}</p>
+                                <p class="card-text">Status: {{ order.status }}</p>
+                                <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a>
+                                <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>
+                                <a href="{% url 'order_delete' order.id %}"><button class="btn btn-danger">Delete</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div>
+                {% if orders.count == 0 %} {% else %}
+                <h3 class="display-6">All Orders</h3>
+                {% endif %}
+                <div class="row">
+                    {% if orders.count == 0 %}
+                    <div class="col-md-12">
+                        <p class="lead">No orders found.</p>
+                    </div>
+                    {% endif %} {% for order in orders %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Vendor: @{{ order.vendor_id }}</h5>
+                                <p class="card-text">Product: {{ order.product }}</p>
+                                <p class="card-text">Customer Name: {{ order.customer }}</p>
+                                <p class="card-text">Quantity: {{ order.quantity }}</p>
+                                <p class="card-text">Order Date: {{ order.date }}</p>
+                                <p class="card-text">Priority: {{ order.priority }}</p>
+                                <p class="card-text">Status: {{ order.status }}</p>
+                                <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a> {% if order.vendor_id.id == user_id %}
+                                <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>
+                                <a href="{% url 'order_delete' order.id %}"><button class="btn btn-danger">Delete</button></a> {% else %}
+                                <button disabled class="btn btn-secondary">Update</button>
+                                <button disabled class="btn btn-secondary">Delete</button> {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

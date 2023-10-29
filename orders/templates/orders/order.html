@@ -1,0 +1,40 @@
+{% extends 'base.html' %} {% block title %}Order Details{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card container">
+                <h3 class="display-6">
+                    Order Details
+                </h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Order ID: {{ order.id }}</li>
+                    <li class="list-group-item">Customer: {{ order.customer }}</li>
+                    <li class="list-group-item">Product: {{ order.product }}</li>
+                    <li class="list-group-item">Quantity: {{ order.quantity }}</li>
+                    <li class="list-group-item">Order Date: {{ order.date }}</li>
+                    <li class="list-group-item">Priority: {{ order.priority }}</li>
+                    <li class="list-group-item">Status: {{ order.status }}</li>
+                    <li class="list-group-item">
+                        <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a> {% if order.vendor_id.id == user_id %}
+                        <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>
+                        <a href="{% url 'order_delete' order.id %}"><button class="btn btn-danger">Delete</button></a> {% else %}
+                        <button disabled class="btn btn-secondary">Update</button>
+                        <button disabled class="btn btn-secondary">Delete</button> {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <br />
+            <div class="card container my-4">
+                <h3 class="display-6">
+                    Vendor Details
+                </h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Username: {{ order.vendor_id.username }}</li>
+                    <li class="list-group-item">Name: {{ order.vendor_id.first_name }} {{ order.vendor_id.last_name }}</li>
+                    <li class="list-group-item">Email: {{ order.vendor_id.email }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
