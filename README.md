@@ -12,5 +12,5 @@
   ```
 - Run the project
   ```
-  python3 main.py
+  python manage.py runserver
   ```
