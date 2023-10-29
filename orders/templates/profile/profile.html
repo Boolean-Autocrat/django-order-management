@@ -40,7 +40,8 @@
                 <div class="col-md-4 mb-4">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Order ID: {{ order.id }}</h5>
+                            <h5><span class="badge bg-secondary">Priority: {{ order.priority }}</span></h5>
+                            <h4 class="card-title">Vendor: @{{ order.vendor_id }}</h4>
                             <p class="card-text">Customer: {{ order.customer }}</p>
                             <p class="card-text">Product: {{ order.product }}</p>
                             <p class="card-text">Quantity: {{ order.quantity }}</p>

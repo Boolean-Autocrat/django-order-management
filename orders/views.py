@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Orders
-from .forms import OrderCreateForm, ProfileEditForm
+from .forms import OrderCreateForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from thefuzz import fuzz
 
 
 def index(request):
@@ -204,3 +205,28 @@ def order_delete(request, order_id):
         Orders.objects.get(id=order_id).delete()
         return redirect("dashboard")
     return render(request, "orders/delete.html", context)
+
+
+def fuzzy_search(request):
+    query = ""
+    if request.method == "GET":
+        query = request.GET.get("query", "")
+    orders = Orders.objects.all()
+    if len(query) == 0:
+        return render(
+            request,
+            "search/fuzzy_search.html",
+            {"results": orders, "user_id": request.user.id},
+        )
+    results = []
+
+    for order in orders:
+        similarity = fuzz.ratio(query, order.priority)
+        if similarity >= 50:
+            results.append(order)
+
+    return render(
+        request,
+        "search/fuzzy_search.html",
+        {"results": results, "user_id": request.user.id},
+    )

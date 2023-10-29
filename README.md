@@ -1,5 +1,6 @@
 # Features
 
+- [x] Fuzzy search on order priority tags
 - [x] Vendor can create an account
 - [x] Vendor can login
 - [x] Vendor can logout

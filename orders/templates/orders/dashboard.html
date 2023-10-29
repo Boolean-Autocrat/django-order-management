@@ -16,12 +16,12 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Vendor: @{{ order.vendor_id }}</h5>
+                                <h5><span class="badge bg-secondary">Priority: {{ order.priority }}</span></h5>
+                                <h4 class="card-title">Vendor: @{{ order.vendor_id }}</h4>
                                 <p class="card-text">Product: {{ order.product }}</p>
                                 <p class="card-text">Customer Name: {{ order.customer }}</p>
                                 <p class="card-text">Quantity: {{ order.quantity }}</p>
                                 <p class="card-text">Order Date: {{ order.date }}</p>
-                                <p class="card-text">Priority: {{ order.priority }}</p>
                                 <p class="card-text">Status: {{ order.status }}</p>
                                 <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a>
                                 <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>
@@ -43,12 +43,12 @@
                     <div class="col-md-4 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">Vendor: @{{ order.vendor_id }}</h5>
+                                <h5><span class="badge bg-secondary">Priority: {{ order.priority }}</span></h5>
+                                <h4 class="card-title">Vendor: @{{ order.vendor_id }}</h4>
                                 <p class="card-text">Product: {{ order.product }}</p>
                                 <p class="card-text">Customer Name: {{ order.customer }}</p>
                                 <p class="card-text">Quantity: {{ order.quantity }}</p>
                                 <p class="card-text">Order Date: {{ order.date }}</p>
-                                <p class="card-text">Priority: {{ order.priority }}</p>
                                 <p class="card-text">Status: {{ order.status }}</p>
                                 <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a> {% if order.vendor_id.id == user_id %}
                                 <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>

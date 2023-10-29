@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand mx-2">Order Management App</a>
         <button class="navbar-toggler mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,19 +23,22 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'search' %}">Search</a>
+                </li>
             </ul>
             <div>
                 {% if user.is_authenticated %}
-                <button class="btn btn-outline-success">
+                <button class="btn btn-success">
                         <a href="{% url 'profile' %}" class="nav-link">Profile</a>
                     </button>
-                <button class="btn btn-outline-danger">
+                <button class="btn btn-danger">
                         <a href="{% url 'logout' %}" class="nav-link">Logout</a>
                     </button> {% else %}
-                <button class="btn btn-outline-success">
+                <button class="btn btn-success">
                         <a href="{% url 'login' %}" class="nav-link">Login</a>
                     </button>
-                <button class="btn btn-outline-success">
+                <button class="btn btn-success">
                         <a href="{% url 'register' %}" class="nav-link">Register</a>
                     </button> {% endif %}
             </div>

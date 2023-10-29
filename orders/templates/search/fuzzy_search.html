@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %}Search{% endblock %} {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+            <form method="get" class="form">
+                <div class="form-floating">
+                    <input type="search" id="form1" name="query" class="form-control" placeholder="Search for an order" />
+                    <label class="form-label" for="form1">Search</label>
+                </div>
+                <button type="submit" class="btn btn-primary my-4">
+                    Submit
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="results">
+        <div class="row">
+            {% for order in results %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><span class="badge bg-secondary">Priority: {{ order.priority }}</span></h5>
+                        <h4 class="card-title">Vendor: @{{ order.vendor_id }}</h4>
+                        <p class="card-text">Product: {{ order.product }}</p>
+                        <p class="card-text">Customer Name: {{ order.customer }}</p>
+                        <p class="card-text">Quantity: {{ order.quantity }}</p>
+                        <p class="card-text">Order Date: {{ order.date }}</p>
+                        <p class="card-text">Status: {{ order.status }}</p>
+                        <a href="{% url 'order_details' order.id %}"><button class="btn btn-primary">Details</button></a> {% if order.vendor_id.id == user_id %}
+                        <a href="{% url 'order_edit' order.id %}"><button class="btn btn-success">Update</button></a>
+                        <a href="{% url 'order_delete' order.id %}"><button class="btn btn-danger">Delete</button></a> {% else %}
+                        <button disabled class="btn btn-secondary">Update</button>
+                        <button disabled class="btn btn-secondary">Delete</button> {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
